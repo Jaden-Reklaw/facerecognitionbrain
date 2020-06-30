@@ -6,12 +6,28 @@ import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
+import Particles from 'react-particles-js';
+
+const particlesOptions = {
+  particles: {
+    number: {
+      value: 100,
+      density: {
+        enable: true,
+        value_area: 800
+      }
+    }
+  }
+}
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Face Recognition Brain</h1>
+        <Particles 
+          params={particlesOptions}
+          className="particles"
+        />
         <Navigation />
         <Logo />
         <Rank />
