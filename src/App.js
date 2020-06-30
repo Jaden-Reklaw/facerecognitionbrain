@@ -16,11 +16,25 @@ const particlesOptions = {
         enable: true,
         value_area: 800
       }
-    }
+    }, color: {
+      value: '#19109d'
+    },
   }
 }
 
 class App extends Component {
+  state = {
+    input: '',
+  }
+
+  handleInput = (event) => {
+    console.log(event.target.value);
+  }
+
+  handleSubmit = (event) => {
+    console.log('click');
+  }
+
   render() {
     return (
       <div className="App">
@@ -31,7 +45,10 @@ class App extends Component {
         <Navigation />
         <Logo />
         <Rank />
-        <ImageLinkForm />
+        <ImageLinkForm 
+          handleInput={this.handleInput}
+          handleSubmit={this.handleSubmit}
+        />
         {/*
         <FaceRecognition /> 
         */}
