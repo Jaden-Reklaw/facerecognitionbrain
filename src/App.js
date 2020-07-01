@@ -8,6 +8,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
+import Register from './components/Register/Register';
 //NPM Packages
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
@@ -15,7 +16,7 @@ import Clarifai from 'clarifai';
 
 //Get app running to connect to clarifai api
 const app = new Clarifai.App({
-  apiKey: 'API KEY'
+  apiKey: 'eca7f3de0d494cd29ef1ce3a1b37b11c'
  });
 
 const particlesOptions = {
@@ -83,19 +84,24 @@ class App extends Component {
           className="particles"
         />
         <Navigation onRouteChange={this.onRouteChange}/>
-        { this.state.route === 'sign-in' ? <SignIn onRouteChange={this.onRouteChange}/> :
+        { this.state.route === 'home' ? 
           <>
-          <Logo />
-          <Rank />
-          <ImageLinkForm 
-            handleInput={this.handleInput}
-            handleSubmit={this.handleSubmit}
-          />
-          <FaceRecognition 
-            imageUrl={this.state.imageUrl}
-            box={this.state.box}
-          />
-          </>
+            <Logo />
+            <Rank />
+            <ImageLinkForm 
+              handleInput={this.handleInput}
+              handleSubmit={this.handleSubmit}
+            />
+            <FaceRecognition 
+              imageUrl={this.state.imageUrl}
+              box={this.state.box}
+            />
+          </> : ( this.state.route === 'sign-in' ? 
+            <SignIn onRouteChange={this.onRouteChange}/> :
+            <Register onRouteChange={this.onRouteChange}/>
+          )
+        
+          
         }
         <footer>
         Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
