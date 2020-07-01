@@ -6,7 +6,15 @@ import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+//NPM Packages
 import Particles from 'react-particles-js';
+import Clarifai from 'clarifai';
+
+//Get app running to connect to clarifai api
+const app = new Clarifai.App({
+  apiKey: 'eca7f3de0d494cd29ef1ce3a1b37b11c'
+ });
 
 const particlesOptions = {
   particles: {
@@ -25,14 +33,30 @@ const particlesOptions = {
 class App extends Component {
   state = {
     input: '',
+    imageUrl: '',
+    box: {
+
+    },
+  }
+
+  calculateFaceLocation = (data) => {
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById('inputImage');
+    const width = Number(image.width);
+    const height = Number(image.height);
+    console.log('width and height are', width, height);
   }
 
   handleInput = (event) => {
-    console.log(event.target.value);
+    this.setState({input: event.target.value});
   }
 
   handleSubmit = (event) => {
-    console.log('click');
+    this.setState({imageUrl: this.state.input})
+    
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .then(response => this.calculateFaceLocation(response))
+      .catch(error => console.log(error));
   }
 
   render() {
@@ -49,9 +73,10 @@ class App extends Component {
           handleInput={this.handleInput}
           handleSubmit={this.handleSubmit}
         />
-        {/*
-        <FaceRecognition /> 
-        */}
+        <FaceRecognition 
+          imageUrl={this.state.imageUrl}
+        /> 
+       
         <footer>
         Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
         </footer>
