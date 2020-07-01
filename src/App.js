@@ -7,13 +7,15 @@ import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import SignIn from './components/SignIn/SignIn';
 //NPM Packages
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 
+
 //Get app running to connect to clarifai api
 const app = new Clarifai.App({
-  apiKey: 'Your API KEY HERE'
+  apiKey: 'API KEY HERE'
  });
 
 const particlesOptions = {
@@ -34,9 +36,8 @@ class App extends Component {
   state = {
     input: '',
     imageUrl: '',
-    box: {
-
-    },
+    box: {},
+    route: 'sign-in'
   }
 
   calculateFaceLocation = (data) => {
@@ -78,17 +79,20 @@ class App extends Component {
           className="particles"
         />
         <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm 
-          handleInput={this.handleInput}
-          handleSubmit={this.handleSubmit}
-        />
-        <FaceRecognition 
-          imageUrl={this.state.imageUrl}
-          box={this.state.box}
-        /> 
-       
+        { this.state.route === 'sign-in' ? <SignIn /> :
+          <>
+          <Logo />
+          <Rank />
+          <ImageLinkForm 
+            handleInput={this.handleInput}
+            handleSubmit={this.handleSubmit}
+          />
+          <FaceRecognition 
+            imageUrl={this.state.imageUrl}
+            box={this.state.box}
+          />
+          </>
+        }
         <footer>
         Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
         </footer>
