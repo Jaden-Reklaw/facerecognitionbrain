@@ -16,7 +16,7 @@ import Clarifai from 'clarifai';
 
 //Get app running to connect to clarifai api
 const app = new Clarifai.App({
-  apiKey: 'API KEY HERE'
+  apiKey: 'eca7f3de0d494cd29ef1ce3a1b37b11c'
  });
 
 const particlesOptions = {
