@@ -15,7 +15,7 @@ import Clarifai from 'clarifai';
 
 //Get app running to connect to clarifai api
 const app = new Clarifai.App({
-  apiKey: 'API KEY HERE'
+  apiKey: 'API KEY'
  });
 
 const particlesOptions = {
@@ -71,6 +71,10 @@ class App extends Component {
       .catch(error => console.log(error));
   }
 
+  onRouteChange = (route) => {
+    this.setState({route: route});
+  }
+
   render() {
     return (
       <div className="App">
@@ -78,8 +82,8 @@ class App extends Component {
           params={particlesOptions}
           className="particles"
         />
-        <Navigation />
-        { this.state.route === 'sign-in' ? <SignIn /> :
+        <Navigation onRouteChange={this.onRouteChange}/>
+        { this.state.route === 'sign-in' ? <SignIn onRouteChange={this.onRouteChange}/> :
           <>
           <Logo />
           <Rank />
