@@ -11,7 +11,6 @@ class SignIn extends Component {
     }
     
     handleSubmit = () => {
-        console.log(this.state);
         fetch('http://localhost:3000/signin', 
         {
             method:'post',
