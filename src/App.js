@@ -16,7 +16,7 @@ import Clarifai from 'clarifai';
 
 //Get app running to connect to clarifai api
 const app = new Clarifai.App({
-  apiKey: 'API KEY GOES HERE'
+  apiKey: ''
  });
 
 const particlesOptions = {
@@ -33,8 +33,7 @@ const particlesOptions = {
   }
 }
 
-class App extends Component {
-  state = {
+const initialState = {
     input: '',
     imageUrl: '',
     box: {},
@@ -47,7 +46,10 @@ class App extends Component {
       entries: 0,
       joined: ''
     }
-  }
+};
+
+class App extends Component {
+  state = initialState;
 
   loadUser = (data) => {
     this.setState({user: {
@@ -108,7 +110,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if(route === 'sign-out') {
-      this.setState({isSignedIn: false});
+      this.setState(initialState);
     } else if(route === 'home'){
       this.setState({isSignedIn: true})
     }
